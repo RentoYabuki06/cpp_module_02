@@ -6,7 +6,7 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:11:35 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/05/03 14:38:30 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/05/03 14:54:53 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,54 +84,64 @@ std::ostream& operator<<(std::ostream& out, const Fixed& fixed)
 
 bool Fixed::operator>(const Fixed& rhs) const
 {
-	return this->toFloat() > rhs.toFloat();
+	return this->_place > rhs._place;
 }
 
 // Comparison Operators
 bool Fixed::operator<(const Fixed& rhs) const
 {
-	return this->toFloat() < rhs.toFloat();
+	return this->_place < rhs._place;
 }
 
 bool Fixed::operator>=(const Fixed& rhs) const
 {
-	return this->toFloat() >= rhs.toFloat();
+	return this->_place >= rhs._place;
 }
 
 bool Fixed::operator<=(const Fixed& rhs) const
 {
-	return this->toFloat() <= rhs.toFloat();
+	return this->_place <= rhs._place;
 }
 
 bool Fixed::operator==(const Fixed& rhs) const
 {
-	return this->toFloat() == rhs.toFloat();
+	return this->_place == rhs._place;
 }
 
 bool Fixed::operator!=(const Fixed& rhs) const
 {
-	return this->toFloat() != rhs.toFloat();
+	return this->_place != rhs._place;
 }
 
 // Arithmetic Operators
 Fixed Fixed::operator+(const Fixed& rhs) const
 {
-	return Fixed(this->toFloat() + rhs.toFloat());
+    Fixed result;
+    result.setRawBits(this->_place + rhs._place);
+    return result;
 }
 
 Fixed Fixed::operator-(const Fixed& rhs) const
 {
-	return Fixed(this->toFloat() - rhs.toFloat());
-}
-
-Fixed Fixed::operator/(const Fixed& rhs) const
-{
-	return Fixed(this->toFloat() / rhs.toFloat());
+    Fixed result;
+    result.setRawBits(this->_place - rhs._place);
+    return result;
 }
 
 Fixed Fixed::operator*(const Fixed& rhs) const
 {
-	return Fixed(this->toFloat() * rhs.toFloat());
+    Fixed result;
+    // fixed-point multiplication: (a * b) >> fractional_bits
+    result.setRawBits((this->_place * rhs._place) >> _fractionalBits);
+    return result;
+}
+
+Fixed Fixed::operator/(const Fixed& rhs) const
+{
+    Fixed result;
+    // fixed-point division: (a << fractional_bits) / b
+    result.setRawBits((this->_place << _fractionalBits) / rhs._place);
+    return result;
 }
 
 // Increment and Decrement Operators 
@@ -164,7 +174,7 @@ Fixed Fixed::operator--(int)
 // Static min/max Functions 
 Fixed& Fixed::min(Fixed& a, Fixed& b)
 {
-	if (a.toFloat() < b.toFloat())
+	if (a._place < b._place)
 		return a;
 	else 
 		return b;
@@ -172,7 +182,7 @@ Fixed& Fixed::min(Fixed& a, Fixed& b)
 
 const Fixed& Fixed::min(const Fixed& a, const Fixed& b)
 {
-	if (a.toFloat() < b.toFloat())
+	if (a._place < b._place)
 		return a;
 	else 
 		return b;
@@ -180,7 +190,7 @@ const Fixed& Fixed::min(const Fixed& a, const Fixed& b)
 
 Fixed& Fixed::max(Fixed& a, Fixed& b)
 {
-	if (a.toFloat() > b.toFloat())
+	if (a._place > b._place)
 		return a;
 	else 
 		return b;
@@ -188,7 +198,7 @@ Fixed& Fixed::max(Fixed& a, Fixed& b)
 
 const Fixed& Fixed::max(const Fixed& a, const Fixed& b)
 {
-	if (a.toFloat() > b.toFloat())
+	if (a._place > b._place)
 		return a;
 	else 
 		return b;
