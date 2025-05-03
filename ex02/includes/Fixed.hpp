@@ -6,7 +6,7 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 21:03:39 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/05/03 14:14:51 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/05/03 14:27:24 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,22 @@ public:
 	bool operator!=(const Fixed& rhs) const;
 
 	// Arithmetic Operators
+	Fixed operator+(const Fixed& rhs) const;
+	Fixed operator-(const Fixed& rhs) const;
+	Fixed operator/(const Fixed& rhs) const;
+	Fixed operator*(const Fixed& rhs) const;
 
 	// Increment and Decrement Operators 
+	Fixed& operator++();
+	Fixed operator++(int);
+	Fixed& operator--();
+	Fixed operator--(int);
 
 	// Static min/max Functions 
+	static Fixed& min(Fixed& a, Fixed& b);
+	static const Fixed& min(const Fixed& a, const Fixed& b);
+	static Fixed& max(Fixed& a, Fixed& b);
+	static const Fixed& max(const Fixed& a, const Fixed& b);
 };
 
 std::ostream& operator<<(std::ostream& out, const Fixed& fixed);

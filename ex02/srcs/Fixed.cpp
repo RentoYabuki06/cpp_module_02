@@ -6,7 +6,7 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:11:35 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/05/03 14:14:39 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/05/03 14:33:20 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 Fixed::Fixed()
 {
-	std::cout << "Default constructor called" << std::endl;
+	// std::cout << "Default constructor called" << std::endl;
 	this->_place = 0;
 }
 
 Fixed::Fixed(const int value)
 {
-	std::cout << "Int constructor called" << std::endl;
+	// std::cout << "Int constructor called" << std::endl;
 	this->_place = value << _fractionalBits;
 }
 
 Fixed::Fixed(const float value)
 {
-	std::cout << "Float constructor called" << std::endl;
+	// std::cout << "Float constructor called" << std::endl;
 	float scaled = value * (1 << _fractionalBits);
 	if (scaled >= 0)
 		this->_place = static_cast<int>(scaled + 0.5f);
@@ -36,18 +36,18 @@ Fixed::Fixed(const float value)
 
 Fixed::~Fixed()
 {
-	std::cout << "Destructor called" << std::endl;
+	// std::cout << "Destructor called" << std::endl;
 }
 
 Fixed::Fixed(const Fixed& other)
 {
-	std::cout << "Copy constructor called" << std::endl;
+	// std::cout << "Copy constructor called" << std::endl;
 	*this = other;
 }
 
 Fixed& Fixed::operator=(const Fixed& other)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
+	// std::cout << "Copy assignment operator called" << std::endl;
 	if (this != &other) {
 		this->_place = other.getRawBits();
 	}
@@ -114,7 +114,82 @@ bool Fixed::operator!=(const Fixed& rhs) const
 }
 
 // Arithmetic Operators
+Fixed Fixed::operator+(const Fixed& rhs) const
+{
+	return Fixed(this->toFloat() + rhs.toFloat());
+}
+
+Fixed Fixed::operator-(const Fixed& rhs) const
+{
+	return Fixed(this->toFloat() - rhs.toFloat());
+}
+
+Fixed Fixed::operator/(const Fixed& rhs) const
+{
+	return Fixed(this->toFloat() / rhs.toFloat());
+}
+
+Fixed Fixed::operator*(const Fixed& rhs) const
+{
+	return Fixed(this->toFloat() * rhs.toFloat());
+}
 
 // Increment and Decrement Operators 
+Fixed& Fixed::operator++()
+{
+	this->setRawBits(this->getRawBits() + 1);
+	return *this;
+}
+
+Fixed Fixed::operator++(int)
+{
+	Fixed tmp = *this;
+	this->setRawBits(this->getRawBits() + 1);
+	return tmp;
+}
+
+Fixed& Fixed::operator--()
+{
+	this->setRawBits(this->getRawBits() - 1);
+	return *this;
+}
+
+Fixed Fixed::operator--(int)
+{
+	Fixed tmp = *this;
+	this->setRawBits(this->getRawBits() - 1);
+	return tmp;
+}
 
 // Static min/max Functions 
+Fixed& Fixed::min(Fixed& a, Fixed& b)
+{
+	if (a.toFloat() < b.toFloat())
+		return a;
+	else 
+		return b;
+}
+
+const Fixed& Fixed::min(const Fixed& a, const Fixed& b)
+{
+	if (a.toFloat() < b.toFloat())
+		return a;
+	else 
+		return b;
+}
+
+Fixed& Fixed::max(Fixed& a, Fixed& b)
+{
+	if (a.toFloat() > b.toFloat())
+		return a;
+	else 
+		return b;
+}
+
+const Fixed& Fixed::max(const Fixed& a, const Fixed& b)
+{
+	if (a.toFloat() > b.toFloat())
+		return a;
+	else 
+		return b;
+}
