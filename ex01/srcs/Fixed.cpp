@@ -6,24 +6,21 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:11:35 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/05/03 14:42:48 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/05/03 15:14:08 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Fixed.hpp"
 
-Fixed::Fixed()
+Fixed::Fixed() : _place(0)
 {
 	std::cout << "Default constructor called" << std::endl;
-	this->_place = 0;
 }
 
-Fixed::Fixed(const int value)
+Fixed::Fixed(const int value) : _place(value << _fractionalBits)
 {
 	std::cout << "Int constructor called" << std::endl;
-	this->_place = value << _fractionalBits;
 }
-
 Fixed::Fixed(const float value)
 {
 	std::cout << "Float constructor called" << std::endl;

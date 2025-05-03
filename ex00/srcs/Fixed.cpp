@@ -6,16 +6,15 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:11:35 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/05/03 14:41:20 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/05/03 15:14:46 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Fixed.hpp"
 
-Fixed::Fixed()
+Fixed::Fixed() : _place(0)
 {
-	std::cout << "Default constructor called" << std::endl;
-	this->_place = 0;
+	// std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::~Fixed()
