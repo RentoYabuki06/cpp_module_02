@@ -6,7 +6,7 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 21:03:39 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/05/03 11:17:26 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/05/03 13:27:46 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ class Fixed
 {
 private:
 	int _place;
-	static const int _fracticalBits = 8;
+	static const int _fractionalBits = 8;
 public:
 	Fixed();
 	Fixed(const Fixed& other);
