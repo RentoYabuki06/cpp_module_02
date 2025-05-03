@@ -6,7 +6,7 @@
 /*   By: yabukirento <yabukirento@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 11:11:35 by yabukirento       #+#    #+#             */
-/*   Updated: 2025/05/03 13:40:12 by yabukirento      ###   ########.fr       */
+/*   Updated: 2025/05/03 14:41:20 by yabukirento      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ int	Fixed::getRawBits() const
 void Fixed::setRawBits(int const raw)
 {
 	std::cout << "setRawBits member function called" << std::endl;
-	_place = raw << _fractionalBits;
+	_place = raw;
 }
